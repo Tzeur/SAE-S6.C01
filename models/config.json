@@ -1,0 +1,18 @@
+{
+  "ml_model": "SVM",
+  "ml_representation": "TF-IDF",
+  "dl_model": "MLP",
+  "dl_representation": "TF-IDF",
+  "tfidf_max_features": 5000,
+  "input_dim": 5000,
+  "polarity_map": {
+    "negative": 0,
+    "neutral": 1,
+    "positive": 2
+  },
+  "inverse_polarity_map": {
+    "0": "negative",
+    "1": "neutral",
+    "2": "positive"
+  }
+}

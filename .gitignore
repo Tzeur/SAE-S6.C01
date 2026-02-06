@@ -1,0 +1,25 @@
+# Dossier de données volumineux
+Data/
+
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# Environnements virtuels
+venv/
+env/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
