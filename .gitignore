@@ -23,3 +23,7 @@ env/
 # OS
 .DS_Store
 Thumbs.db
+
+# Fichiers sensibles (contiennent des credentials)
+src/setup_trello.js
+src/test_trello.js
