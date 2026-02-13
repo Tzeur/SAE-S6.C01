@@ -32,26 +32,13 @@ class Colors:
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(SCRIPT_DIR, 'models')
 
-# MLP Architecture (must match training)
-class MLP(nn.Module):
-    def __init__(self, input_dim, hidden_dim=256, num_classes=3):
-        super(MLP, self).__init__()
-        self.model = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(hidden_dim, hidden_dim//2),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(hidden_dim//2, num_classes)
-        )
-    def forward(self, x):
-        return self.model(x)
+# Import MLP from src package
+from src.models import MLP
 
 
 def load_models():
     """Charge les modèles et vectorizers sauvegardés."""
-    print(f"{Colors.BLUE}📦 Chargement des modèles...{Colors.RESET}")
+    print(f"{Colors.BLUE}Chargement des modèles...{Colors.RESET}")
     
     # Load config
     with open(os.path.join(MODELS_DIR, 'config.json'), 'r') as f:
@@ -72,7 +59,7 @@ def load_models():
     dl_model.to(device)
     dl_model.eval()
     
-    print(f"{Colors.GREEN}✅ Modèles chargés avec succès!{Colors.RESET}")
+    print(f"{Colors.GREEN}Modèles chargés avec succès!{Colors.RESET}")
     return tfidf, ml_model, dl_model, config, device
 
 
@@ -99,7 +86,7 @@ def predict_single(text, tfidf, ml_model, dl_model, config, device):
 
 def predict_file(filepath, tfidf, ml_model, dl_model, config, device):
     """Prédit la polarité pour un fichier CSV/JSON."""
-    print(f"\n{Colors.BLUE}📂 Lecture du fichier: {filepath}{Colors.RESET}")
+    print(f"\n{Colors.BLUE}Lecture du fichier: {filepath}{Colors.RESET}")
     
     # Read file
     if filepath.endswith('.csv'):
@@ -117,11 +104,11 @@ def predict_file(filepath, tfidf, ml_model, dl_model, config, device):
             break
     
     if text_col is None:
-        print(f"{Colors.YELLOW}⚠️ Colonnes disponibles: {list(df.columns)}{Colors.RESET}")
+        print(f"{Colors.YELLOW}Colonnes disponibles: {list(df.columns)}{Colors.RESET}")
         text_col = df.columns[0]
         print(f"{Colors.YELLOW}  → Utilisation de la première colonne: '{text_col}'{Colors.RESET}")
     
-    print(f"{Colors.BLUE}📊 {len(df)} lignes à traiter...{Colors.RESET}")
+    print(f"{Colors.BLUE}{len(df)} lignes à traiter...{Colors.RESET}")
     
     inverse_map = {int(k): v for k, v in config['inverse_polarity_map'].items()}
     
@@ -143,7 +130,7 @@ def predict_file(filepath, tfidf, ml_model, dl_model, config, device):
     # Save results
     output_path = filepath.replace('.csv', '_predictions.csv').replace('.json', '_predictions.csv')
     df.to_csv(output_path, index=False)
-    print(f"{Colors.GREEN}✅ Résultats sauvegardés: {output_path}{Colors.RESET}")
+    print(f"{Colors.GREEN}Résultats sauvegardés: {output_path}{Colors.RESET}")
     
     # Display summary
     print(f"\n{Colors.BOLD}📈 Résumé des prédictions:{Colors.RESET}")
@@ -174,12 +161,12 @@ def main():
     try:
         tfidf, ml_model, dl_model, config, device = load_models()
     except FileNotFoundError as e:
-        print(f"{Colors.RED}❌ Erreur: Modèles non trouvés. Exécutez d'abord le notebook 2_prediction_models.ipynb{Colors.RESET}")
+        print(f"{Colors.RED}Erreur: Modèles non trouvés. Exécutez d'abord le notebook 2_prediction_models.ipynb{Colors.RESET}")
         print(f"   Détail: {e}")
         sys.exit(1)
     
-    print(f"\n{Colors.BOLD}🤖 Modèle ML: {config['ml_model']} + {config['ml_representation']}{Colors.RESET}")
-    print(f"{Colors.BOLD}🧠 Modèle DL: {config['dl_model']} + {config['dl_representation']}{Colors.RESET}")
+    print(f"\n{Colors.BOLD}Modèle ML: {config['ml_model']} + {config['ml_representation']}{Colors.RESET}")
+    print(f"{Colors.BOLD}Modèle DL: {config['dl_model']} + {config['dl_representation']}{Colors.RESET}")
     
     # Interactive mode
     if args.interactive or (args.input is None and not args.text):
@@ -197,7 +184,7 @@ def main():
                 print(f"  {Colors.BOLD}DL:{Colors.RESET} {colors[dl_label]}{dl_label.upper()}{Colors.RESET}")
             except KeyboardInterrupt:
                 break
-        print(f"\n{Colors.BLUE}👋 Au revoir!{Colors.RESET}")
+        print(f"\n{Colors.BLUE}Au revoir!{Colors.RESET}")
     
     # Single text mode
     elif args.text:
@@ -210,7 +197,7 @@ def main():
     # File mode
     else:
         if not os.path.exists(args.input):
-            print(f"{Colors.RED}❌ Fichier non trouvé: {args.input}{Colors.RESET}")
+            print(f"{Colors.RED}Fichier non trouvé: {args.input}{Colors.RESET}")
             sys.exit(1)
         predict_file(args.input, tfidf, ml_model, dl_model, config, device)
 
