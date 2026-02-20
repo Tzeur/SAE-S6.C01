@@ -10,3 +10,4 @@ tqdm
 jupyter
 polars
 pypdf
+pyarrow
