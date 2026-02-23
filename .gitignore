@@ -1,0 +1,37 @@
+# Virtual environment
+.venv/
+
+# Data files (too large for GitHub)
+Data/
+*.jsonl
+*.parquet
+*.npy
+*.npz
+
+# Model checkpoints and weights (too large for GitHub)
+notebooks/results/
+notebooks/my_dir/
+notebooks/tuner_dir/
+tuner_dir/
+*.h5
+*.safetensors
+*.pt
+*.keras
+
+# Saved models
+models/*.pkl
+models/*.keras
+
+# Sauvegarde/distilbert_model weights
+Sauvegarde/distilbert_model/model.safetensors
+
+# Misc
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.pkl
+fix_notebook.py
+
+# System
+.DS_Store
+Thumbs.db

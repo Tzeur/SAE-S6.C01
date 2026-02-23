@@ -1,0 +1,25 @@
+{
+  "ml_model": "SVM",
+  "dl_model": "Tuned DL",
+  "dl_framework": "tensorflow",
+  "representation": "TF-IDF",
+  "tfidf_max_features": 5000,
+  "input_dim": 5000,
+  "best_hps": {
+    "num_layers": 1,
+    "activation": "relu",
+    "learning_rate": 0.0010264495728720742,
+    "optimizer": "adamax",
+    "best_epoch": 2
+  },
+  "polarity_map": {
+    "negative": 0,
+    "neutral": 1,
+    "positive": 2
+  },
+  "inverse_polarity_map": {
+    "0": "negative",
+    "1": "neutral",
+    "2": "positive"
+  }
+}
